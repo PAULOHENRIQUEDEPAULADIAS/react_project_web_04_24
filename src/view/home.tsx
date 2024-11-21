@@ -1,9 +1,13 @@
 import React from "react";
+import Alert from "../components/alert";
 
 const Home: React.FC = () => {
 
   return (
-    <>Tela de Home</>
+    <>
+      <Alert />
+    Tela de Home
+    </>
   );
 };
 
