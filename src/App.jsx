@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import './App.scss';
 
-import Home from './view/home.tsx';
 import SignIn from './view/signin.tsx';
 import SignUp from './view/signup.tsx';
 import Dashboard from './view/dashboard.tsx';
@@ -21,7 +20,6 @@ function App() {
         <Routes>
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/" element={<Home />} />
           <Route
             path="/dashboard"
             element={<PrivateRoute isAuthenticated={isAuthenticated} element={<Dashboard />} />}
