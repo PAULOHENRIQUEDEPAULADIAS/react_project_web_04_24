@@ -138,7 +138,7 @@ const SignUp = () => {
           />
         </Grid>
         <Grid sx={{ ...styles.centerBox, ...styles.marginTop }} item xs={12}>
-          <Link to="/signin">Entrar</Link>
+          <Link to="/">Entrar</Link>
         </Grid>
         <Grid sx={styles.marginTop} item xs={12}>
           <Button fullWidth onClick={verifyRegister}>
