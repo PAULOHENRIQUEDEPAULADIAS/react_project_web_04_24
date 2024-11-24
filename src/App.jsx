@@ -19,11 +19,9 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-
-          {/* Rotas Privadas */}
+          <Route path="/" element={<Home />} />
           <Route
             path="/dashboard"
             element={<PrivateRoute isAuthenticated={isAuthenticated} element={<Dashboard />} />}
