@@ -9,7 +9,7 @@ import Dashboard from './view/dashboard.tsx';
 import Settings from './view/settigns.tsx';
 import Forms from './view/forms.tsx';
 import PrivateRoute from "./components/privateroute.tsx";
-import { AuthProvider, useAuth } from "./services/authcontext.tsx";
+import { AuthProvider, useAuth } from "./services/authcontext.jsx";
 
 
 function App() {
