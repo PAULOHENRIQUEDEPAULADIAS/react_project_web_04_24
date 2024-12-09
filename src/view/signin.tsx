@@ -11,10 +11,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { signIn } from "../services/authcontext";
 import { useState } from "react";
 import { handleChange } from "../utils/core";
+import { AuthProvider, useAuth } from "../services/authcontext.jsx";
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
   const { showSnackMessage, showAlertMessage, supabase } = useAppContext();
+  const { login } = useAuth();
+
   const [data, setData] = useState({
     email: {
       value: "",
@@ -35,13 +38,23 @@ const SignIn: React.FC = () => {
       supabase
     );
 
+    console.log("Response:", response);
+    console.log("Error:", error);
+  
     if (error && error.message === "Invalid login credentials") {
       showSnackMessage("Dados de usuário inválidos");
     } else {
       localStorage.setItem("session", JSON.stringify(response.session));
       localStorage.setItem("user", JSON.stringify(response.user));
-      navigate("/");
+      login();
+      navigate("/dashboard");
     }
+  };
+
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      verifyLogin();
+    } 
   };
 
   return (
@@ -88,6 +101,7 @@ const SignIn: React.FC = () => {
               handleChange(data, setData, event.target.value, "password")
             }
             type="password"
+            onKeyPress={handleKeyPress}
             value={data.password.value}
           />
         </Grid>

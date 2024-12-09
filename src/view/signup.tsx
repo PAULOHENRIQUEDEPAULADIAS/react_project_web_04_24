@@ -13,6 +13,7 @@ import { useState } from "react";
 import { handleChange } from "../utils/core";
 import { validateEmail, validPassword } from "../utils/validator";
 
+
 const SignUp = () => {
   const navigate = useNavigate();
   const { showSnackMessage, showAlertMessage, supabase } = useAppContext();
@@ -77,24 +78,34 @@ const SignUp = () => {
       }
     } else {
       showSnackMessage("Usuário criado com sucesso!");
-      navigate("/signin");
+      navigate("/");
+    }
+  };
+
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      verifyRegister();
     }
   };
 
   return (
-    <Box      sx={{
-      height: "100vh",
-      paddingTop: 8,
-    }}>
+    <Box
+      sx={{
+        height: "100vh",
+        paddingTop: 8,
+      }}
+    >
       <Grid sx={styles.boxAdjustment} container>
         <Grid sx={styles.centerBox} item xs={12}>
           <Avatar alt="Logo" />
         </Grid>
         <Grid sx={{ ...styles.centerBox, ...styles.marginTop }} item xs={12}>
-          <Typography variant="h3">Login</Typography>
+          <Typography variant="h3">Tela de Cadastro</Typography>
         </Grid>
         <Grid sx={styles.centerBox} item xs={12}>
-          <Typography variant="h5">Bem vindo seu app Gerenciador de Compras</Typography>
+          <Typography variant="h5">
+            Bem vindo seu app Gerenciador de Compras
+          </Typography>
         </Grid>
         <Grid sx={styles.marginTop} item xs={12}>
           <TextField
@@ -135,13 +146,19 @@ const SignUp = () => {
             }
             type="password"
             value={data.confirm_password.value}
+            error={data.confirm_password.error}
+            helperText={
+              data.confirm_password.error ? "As senhas não coincidem" : ""
+            }
+            onKeyPress={handleKeyPress}
           />
         </Grid>
-        <Grid sx={{ ...styles.centerBox, ...styles.marginTop }} item xs={12}>
-          <Link to="/">Entrar</Link>
+        <Grid sx={{ ...styles.marginTop, textAlign: "center" }} item xs={12}>
+          <Link to="/">Já tem conta? Entre aqui</Link>
         </Grid>
+
         <Grid sx={styles.marginTop} item xs={12}>
-          <Button fullWidth onClick={verifyRegister}>
+          <Button fullWidth={true} onClick={verifyRegister}>
             Registrar
           </Button>
         </Grid>
@@ -153,22 +170,20 @@ const SignUp = () => {
 const styles = {
   centerBox: {
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "column", // Garante alinhamento em coluna
     alignItems: "center",
     justifyContent: "center",
-    marginTop: "4px",
   },
   boxAdjustment: {
-    padding: "2px",
+    padding: "16px",
     display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center ",
-    marginTop: "4px",
+    flexDirection: "column", // Adicione isso para garantir o layout em coluna
+    gap: "16px", // Adiciona espaço consistente entre os elementos
   },
   marginTop: {
-    marginTop: "4px",
+    marginTop: 4,
   },
 };
+
 
 export default SignUp;

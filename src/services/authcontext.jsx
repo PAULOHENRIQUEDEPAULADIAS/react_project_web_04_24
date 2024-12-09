@@ -5,10 +5,17 @@ import { redirect } from "react-router-dom";
 const AuthContext = createContext(undefined);
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    // Verifica a sessão armazenada no início
+    return !!localStorage.getItem("session");
+  });
 
   const login = () => setIsAuthenticated(true);
-  const logout = () => setIsAuthenticated(false);
+  const logout = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem("session");
+    localStorage.removeItem("user");
+  };
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
@@ -16,6 +23,7 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
@@ -28,25 +36,36 @@ export const useAuth = () => {
 // Função de verificação de autenticação
 const isAuthenticated = () => {
   const session = localStorage.getItem("session");
-
-  if (session) throw redirect("/");
-  return null;
-};
+  return !!session; // Retorna true se a sessão existir, false caso contrário
+};  
 
 // Função de verificação de páginas protegidas
 const handleVerificationProtected = () => {
-  const session = localStorage.getItem("session");
+  const session = JSON.parse(localStorage.getItem("session") || "null");
 
-  if (!session) throw redirect("/signin");
+  if (!session) {
+    console.log("Sessão inválida ou inexistente. Redirecionando...");
+    throw redirect("/signin");
+  }
+
   return null;
 };
 
+
 // Função de login
 const signIn = async (email, password, supabase) => {
-  return await supabase.auth.signInWithPassword({
-    email, password
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
   });
+
+  if (error) {
+    console.error("Erro ao autenticar:", error.message);
+  }
+
+  return { data, error };
 };
+
 
 // Função de cadastro
 const signUp = async (email, password, supabase) => {
