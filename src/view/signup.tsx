@@ -88,6 +88,8 @@ const SignUp = () => {
     }
   };
 
+  
+
   return (
     <Box
       sx={{

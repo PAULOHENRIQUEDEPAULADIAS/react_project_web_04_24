@@ -4,7 +4,7 @@ import './App.scss';
 
 import SignIn from './view/signin.tsx';
 import SignUp from './view/signup.tsx';
-import Dashboard from './view/dashboard.tsx';
+import Home from './view/home.tsx';
 import Settings from './view/settigns.tsx';
 import Forms from './view/forms.tsx';
 import PrivateRoute from "./components/privateroute.tsx";
@@ -21,8 +21,8 @@ function App() {
           <Route path="/" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route
-            path="/dashboard"
-            element={<PrivateRoute isAuthenticated={isAuthenticated} element={<Dashboard />} />}
+            path="/home"
+            element={<PrivateRoute isAuthenticated={isAuthenticated} element={<Home />} />}
           />
           <Route
             path="/settings"

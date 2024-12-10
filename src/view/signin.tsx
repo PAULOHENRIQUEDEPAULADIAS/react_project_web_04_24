@@ -16,7 +16,7 @@ import { AuthProvider, useAuth } from "../services/authcontext.jsx";
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
   const { showSnackMessage, showAlertMessage, supabase } = useAppContext();
-  const { login } = useAuth();
+  const { login } = useAuth(); 
 
   const [data, setData] = useState({
     email: {
@@ -37,19 +37,26 @@ const SignIn: React.FC = () => {
       data.password.value,
       supabase
     );
-
-    console.log("Response:", response);
-    console.log("Error:", error);
   
-    if (error && error.message === "Invalid login credentials") {
+    if (error) {
+      console.error("Erro de login:", error.message);
       showSnackMessage("Dados de usuário inválidos");
     } else {
-      localStorage.setItem("session", JSON.stringify(response.session));
-      localStorage.setItem("user", JSON.stringify(response.user));
-      login();
-      navigate("/dashboard");
+      if (response.session && response.user) {
+        localStorage.setItem("session", JSON.stringify(response.session)); 
+        localStorage.setItem("user", JSON.stringify(response.user)); 
+        
+        
+        login();
+        
+        navigate("/home");
+      } else {
+        console.error("Login realizado, mas sem dados de usuário.");
+        showSnackMessage("Erro inesperado durante o login.");
+      }
     }
   };
+  
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
