@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Card, Fab, Grid, Typography } from '.';
 import { useAppContext } from '../Context';
 
-const CardNewItemComponent = ({ Icon, color, title, actionType, isEmpty }) => {
+const CardNewItemComponent = ({ Icon, color, title, actionType, isEmpty, handleClick }) => {
     const navigate = useNavigate();
     //const { translate } = useAppContext();
 
@@ -35,7 +35,7 @@ const CardNewItemComponent = ({ Icon, color, title, actionType, isEmpty }) => {
                             backgroundColor: "#fff",
                             position: 'relative',
                         }}
-                        onClick={() => navigate(`/new/${actionType}`)}
+                        onClick={handleClick}
                     >
                         <AddIcon />
                     </Fab>
