@@ -3,9 +3,9 @@ import { Grid, Avatar, Box, Typography } from "../components";
 import Logo from "../img/logo.png";
 import { Settings, List } from "@mui/icons-material"; // Importando os ícones
 
-import { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppContext } from "../Context";
+import { useAppContext } from "../context";
 import { CardNewItem } from "../components";
 
 import "swiper/css";
@@ -17,12 +17,18 @@ import { ACTIONS } from "../constants/actions.js";
 import FormularioCategoria from "../view/forms";
 import { IconButton, Modal, Button, Fab } from "@mui/material";
 
+import ShoppingList from "../components/shoppingList.jsx";
+
+
+
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const theme = useTheme();
-  const { translate } = useAppContext(); // Ajeitar de acordo com o contexto
+  //const { translate } = useAppContext();
 
   const [openModal, setOpenModal] = useState(false);
+  const [items, setItems] = useState([]);
+  const componentRef = useRef();
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -36,10 +42,6 @@ const Home: React.FC = () => {
     navigate("/settings"); // Navegar para a página de settings
   };
 
-  const navigateToList = () => {
-    // A navegação para o List será implementada futuramente
-  };
-
   const navigateToAddAction = () => {
     navigate("/add-action");
   };
@@ -50,6 +52,20 @@ const Home: React.FC = () => {
   };
   
 
+  const handlePrint = () => {
+    const printContents = document.getElementById("printable-area").innerHTML;
+    const originalContents = document.body.innerHTML;
+  
+    // Temporariamente substitui o conteúdo do body
+    document.body.innerHTML = printContents;
+  
+    // Aciona a impressão
+    window.print();
+  
+    // Restaura o conteúdo original
+    document.body.innerHTML = originalContents;
+  };
+  
   return (
     <Box
       sx={{
@@ -108,8 +124,9 @@ const Home: React.FC = () => {
           </Box>
 
           <Box sx={{ display: "flex", alignItems: "center" }}>
+            {/* Aqui, o ícone de lista será utilizado para abrir a lista de compras */}
             <IconButton
-              onClick={navigateToList}
+              onClick={handlePrint}
               sx={{
                 color: "#b0bec5",
                 fontSize: "60px",
@@ -126,6 +143,7 @@ const Home: React.FC = () => {
           Aplicativo gerenciador de compras
         </Typography>
 
+        
         {/* Carrossel de ACTIONS */}
         <Grid
           item
@@ -203,27 +221,63 @@ const Home: React.FC = () => {
           </Box>
         </Modal>
 
-        {/* Botão de adicionar nova Ação */}
-        <Grid
-          item
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "-2.5em",
-            alignItems: "top",
-          }}
-        >
-          <Fab
-            size="large"
-            sx={{ backgroundColor: theme.palette.secondary.main }}
-            onClick={navigateToAddAction}
-          >
-            <Typography sx={{ fontSize: "2em", color: "#fff" }}>+</Typography>
-          </Fab>
-        </Grid>
+        <div id="printable-area">
+  <ShoppingList />
+</div>
+
       </Grid>
     </Box>
   );
 };
 
 export default Home;
+
+<style>
+  {`
+    @media print {
+      /* Oculta tudo fora do print-area */
+      body > * {
+        display: none !important;
+      }
+
+      /* Mostra apenas o conteúdo a ser impresso */
+      #printable-area {
+        display: block !important;
+        width: 100%;
+        padding: 20px;
+        margin: 0 auto;
+        font-family: Arial, sans-serif;
+        box-sizing: border-box;
+      }
+
+      /* Estilo para os itens na lista */
+      #printable-area .shopping-item {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Ajusta o espaçamento entre os itens */
+      #printable-area .shopping-item + .shopping-item {
+        margin-top: 10px;
+      }
+
+      /* Ajuste de texto e outros elementos */
+      #printable-area .shopping-item h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      #printable-area .shopping-item p {
+        margin: 5px 0 0;
+        font-size: 14px;
+      }
+    }
+  `}
+</style>
