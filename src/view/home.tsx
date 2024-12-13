@@ -167,7 +167,7 @@ const Home: React.FC = () => {
                 color={theme.palette.primary.main}
                 actionType="category"
                 isEmpty={true}
-                onFabClick={handleOpenModal}
+                handleClick={handleOpenModal}
               />
             </SwiperSlide>
           </Swiper>

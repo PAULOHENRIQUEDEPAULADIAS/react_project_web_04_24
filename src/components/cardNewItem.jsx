@@ -1,7 +1,7 @@
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from "react-router-dom";
 import { Card, Fab, Grid, Typography } from '.';
-import { useAppContext } from '../Context';
+import { useAppContext } from '../context';
 
 const CardNewItemComponent = ({ Icon, color, title, actionType, isEmpty, handleClick }) => {
     const navigate = useNavigate();
