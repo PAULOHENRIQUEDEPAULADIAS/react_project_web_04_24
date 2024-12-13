@@ -17,7 +17,7 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import LiquorIcon from '@mui/icons-material/Liquor';
 import TakeoutDiningIcon from '@mui/icons-material/TakeoutDining';
 
-import { useAppContext } from '../Context';
+import { useAppContext } from '../context';
 
 const CustomList = ({ items, ...props }) => {
     const navigate = useNavigate();
