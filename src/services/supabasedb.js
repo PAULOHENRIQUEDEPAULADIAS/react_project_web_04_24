@@ -1,21 +1,18 @@
 import { createClient } from "@supabase/supabase-js";
 import { getUser } from "../utils/core";
 
-// Inicialização do Supabase
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   auth: {
-    persistSession: true, // Garante a persistência da sessão
-    autoRefreshToken: true, // Atualiza tokens automaticamente
+    persistSession: true, 
+    autoRefreshToken: true, 
   },
 });
 
-// Função para obter o usuário logado
 const user = getUser();
 
-// Função para atualizar ou inserir dados (upsert)
 const update = async (table, data, id) => {
   if (id) {
     data.id = id;
@@ -27,7 +24,6 @@ const update = async (table, data, id) => {
   return result;
 };
 
-// Função para excluir um registro
 const drop = async (table, id) => {
   const { data: result, error } = await supabase.from(table).delete().eq("id", id);
   if (error) {
@@ -36,7 +32,6 @@ const drop = async (table, id) => {
   return result;
 };
 
-// Função para obter um registro com condições opcionais
 const get = async (table, conditions) => {
   let query = supabase.from(table).select();
   if (conditions && conditions.length > 0) {
@@ -51,12 +46,11 @@ const get = async (table, conditions) => {
   return data[0];
 };
 
-// Função para listar registros de um usuário
 const list = async (table) => {
   const { data, error } = await supabase
     .from(table)
     .select()
-    .eq("user_id", user?.id) // Verifica se o usuário está definido
+    .eq("user_id", user?.id) 
     .order("created_at", { ascending: false });
   if (error) {
     throw error;
@@ -64,14 +58,12 @@ const list = async (table) => {
   return data;
 };
 
-// Função para salvar um novo registro
 const save = async (table, data) => {
   return await update(table, data, null);
 };
 
-// Exportação das funções e do cliente Supabase
 export {
-  supabase, // Exporta o cliente para uso em outras partes do projeto
+  supabase, 
   save,
   update,
   drop,

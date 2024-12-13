@@ -1,12 +1,11 @@
 import React, { createContext, useContext, useState } from "react";
 import { redirect } from "react-router-dom";
 import { supabase } from "./supabasedb.js";
-// AuthContext para gerenciar o estado de autenticação
+
 const AuthContext = createContext(undefined);
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    // Verifica a sessão armazenada no início
     return !!localStorage.getItem("session");
   });
 
@@ -45,13 +44,12 @@ export const useAuth = () => {
   return context;
 };
 
-// Função de verificação de autenticação
+
 const isAuthenticated = () => {
   const session = localStorage.getItem("session");
-  return !!session; // Retorna true se a sessão existir, false caso contrário
+  return !!session; 
 };
 
-// Função de verificação de páginas protegidas
 const handleVerificationProtected = async () => {
   const { data: session } = await supabase.auth.getSession();
   if (!session) {
@@ -61,16 +59,13 @@ const handleVerificationProtected = async () => {
   return session;
 };
 
-// Função de login
 const signIn = async (email, password, supabase) => {
-  // Certifique-se de que email e password não sejam undefined
   if (!email || !password) {
     console.error("Erro: E-mail ou senha não fornecidos");
     return { data: null, error: { message: "E-mail ou senha ausentes" } };
   }
   console.log("Supabase object:", supabase);
 
-  // Realizando o login
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
@@ -86,7 +81,6 @@ const signIn = async (email, password, supabase) => {
   return { data, error };
 };
 
-// Função de cadastro
 const signUp = async (email, password, supabase) => {
   return await supabase.auth.signUp({
     email,

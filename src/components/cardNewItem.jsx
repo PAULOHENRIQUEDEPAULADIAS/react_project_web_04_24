@@ -18,14 +18,14 @@ const CardNewItemComponent = ({ Icon, color, title, actionType, isEmpty, handleC
             }}
         >
             {isEmpty ? (
-                // Renderizar apenas o grid vazio e o botão de adição
+      
                 <Grid
                     sx={{
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        height: '100px', // Altura para alinhar visualmente
+                        height: '100px', 
                     }}
                 >
                     <Fab
@@ -41,7 +41,6 @@ const CardNewItemComponent = ({ Icon, color, title, actionType, isEmpty, handleC
                     </Fab>
                 </Grid>
             ) : (
-                // Renderizar o conteúdo padrão (Icon, título, descrição)
                 <>
                     <Grid
                         sx={{

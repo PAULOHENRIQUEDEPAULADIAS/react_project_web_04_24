@@ -172,15 +172,15 @@ const SignUp = () => {
 const styles = {
   centerBox: {
     display: "flex",
-    flexDirection: "column", // Garante alinhamento em coluna
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
   },
   boxAdjustment: {
     padding: "16px",
     display: "flex",
-    flexDirection: "column", // Adicione isso para garantir o layout em coluna
-    gap: "16px", // Adiciona espaço consistente entre os elementos
+    flexDirection: "column", 
+    gap: "16px", 
   },
   marginTop: {
     marginTop: 4,

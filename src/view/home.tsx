@@ -1,7 +1,7 @@
 import { useTheme } from "@mui/material/styles";
 import { Grid, Avatar, Box, Typography } from "../components";
 import Logo from "../img/logo.png";
-import { Settings, List } from "@mui/icons-material"; // Importando os ícones
+import { Settings, List } from "@mui/icons-material";
 
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -39,7 +39,7 @@ const Home: React.FC = () => {
   };
 
   const navigateToSettings = () => {
-    navigate("/settings"); // Navegar para a página de settings
+    navigate("/settings");
   };
 
   const navigateToAddAction = () => {
@@ -47,7 +47,7 @@ const Home: React.FC = () => {
   };
 
   const handleClick = () => {
-    console.log("Fab clicado"); // Para debug
+    console.log("Fab clicado"); 
     onFabClick();
   };
   
@@ -55,14 +55,11 @@ const Home: React.FC = () => {
   const handlePrint = () => {
     const printContents = document.getElementById("printable-area").innerHTML;
     const originalContents = document.body.innerHTML;
-  
-    // Temporariamente substitui o conteúdo do body
+ 
     document.body.innerHTML = printContents;
-  
-    // Aciona a impressão
+
     window.print();
-  
-    // Restaura o conteúdo original
+
     document.body.innerHTML = originalContents;
   };
   
@@ -84,7 +81,7 @@ const Home: React.FC = () => {
         alignItems="center"
         sx={{ maxWidth: "600px", width: "100%" }}
       >
-        {/* Container para logo e ícones */}
+        
         <Grid
           item
           sx={{
@@ -124,7 +121,7 @@ const Home: React.FC = () => {
           </Box>
 
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            {/* Aqui, o ícone de lista será utilizado para abrir a lista de compras */}
+          
             <IconButton
               onClick={handlePrint}
               sx={{
@@ -144,7 +141,7 @@ const Home: React.FC = () => {
         </Typography>
 
         
-        {/* Carrossel de ACTIONS */}
+      
         <Grid
           item
           container
@@ -191,7 +188,7 @@ const Home: React.FC = () => {
           </Swiper>
         </Grid>
 
-        {/* Modal */}
+       
         <Modal
           open={openModal}
           onClose={handleCloseModal}
@@ -232,52 +229,3 @@ const Home: React.FC = () => {
 
 export default Home;
 
-<style>
-  {`
-    @media print {
-      /* Oculta tudo fora do print-area */
-      body > * {
-        display: none !important;
-      }
-
-      /* Mostra apenas o conteúdo a ser impresso */
-      #printable-area {
-        display: block !important;
-        width: 100%;
-        padding: 20px;
-        margin: 0 auto;
-        font-family: Arial, sans-serif;
-        box-sizing: border-box;
-      }
-
-      /* Estilo para os itens na lista */
-      #printable-area .shopping-item {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 20px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        background-color: #f9f9f9;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      /* Ajusta o espaçamento entre os itens */
-      #printable-area .shopping-item + .shopping-item {
-        margin-top: 10px;
-      }
-
-      /* Ajuste de texto e outros elementos */
-      #printable-area .shopping-item h3 {
-        margin: 0;
-        font-size: 16px;
-        font-weight: bold;
-      }
-
-      #printable-area .shopping-item p {
-        margin: 5px 0 0;
-        font-size: 14px;
-      }
-    }
-  `}
-</style>

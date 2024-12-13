@@ -16,28 +16,25 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
-import { ACTIONS } from "../constants/actions"; // Importando as categorias de ações
+import { ACTIONS } from "../constants/actions"; 
 import { Delete as DeleteIcon } from "@mui/icons-material";
 
 const ShoppingList = () => {
-  const [openModal, setOpenModal] = useState(false); // Controlar a exibição do modal
-  const [selectedCategory, setSelectedCategory] = useState(null); // Categoria selecionada
-  const [itemDescription, setItemDescription] = useState(""); // Descrição do item
-  const [items, setItems] = useState([]); // Lista de itens adicionados
+  const [openModal, setOpenModal] = useState(false); 
+  const [selectedCategory, setSelectedCategory] = useState(null); 
+  const [itemDescription, setItemDescription] = useState(""); 
+  const [items, setItems] = useState([]); 
 
-  // Função para abrir o modal
   const handleOpenModal = () => {
     setOpenModal(true);
   };
 
-  // Função para fechar o modal
   const handleCloseModal = () => {
     setOpenModal(false);
     setSelectedCategory(null);
     setItemDescription("");
   };
 
-  // Função para adicionar um novo item à lista
   const handleAddItem = () => {
     if (selectedCategory && itemDescription) {
       const newItem = {
@@ -51,12 +48,10 @@ const ShoppingList = () => {
     }
   };
 
-  // Função para excluir um item da lista
   const handleDeleteItem = (itemId) => {
     setItems(items.filter((item) => item.id !== itemId));
   };
 
-  // Função para marcar o item como "adicionado"
   const handleCheckItem = (itemId) => {
     setItems(
       items.map((item) =>
@@ -65,7 +60,6 @@ const ShoppingList = () => {
     );
   };
 
-  // Função para renderizar o ícone da categoria selecionada
   const getCategoryIcon = (category) => {
     const categoryObj = ACTIONS.find((action) => action.title === category);
     return categoryObj ? (
@@ -75,7 +69,7 @@ const ShoppingList = () => {
 
   return (
     <>
-      {/* Botão de adicionar nova ação */}
+ 
       <Grid
         item
         sx={{
@@ -94,7 +88,7 @@ const ShoppingList = () => {
         </Fab>
       </Grid>
 
-      {/* Modal para adicionar item */}
+
       <Modal open={openModal} onClose={handleCloseModal}>
         <Box
           sx={{
@@ -112,7 +106,7 @@ const ShoppingList = () => {
           <Typography variant="h6" sx={{ marginBottom: "1em" }}>
             Adicionar Novo Item
           </Typography>
-          {/* Seleção da categoria */}
+
           <FormControl fullWidth sx={{ marginBottom: "1em" }}>
             <InputLabel>Selecione a Categoria</InputLabel>
             <Select
@@ -127,7 +121,7 @@ const ShoppingList = () => {
               ))}
             </Select>
           </FormControl>
-          {/* Descrição do item */}
+
           <TextField
             label="Descrição do Item"
             fullWidth
@@ -135,7 +129,7 @@ const ShoppingList = () => {
             onChange={(e) => setItemDescription(e.target.value)}
             sx={{ marginBottom: "1em" }}
           />
-          {/* Botão para adicionar item */}
+
           <Button
             variant="contained"
             color="primary"
@@ -147,7 +141,7 @@ const ShoppingList = () => {
         </Box>
       </Modal>
 
-      {/* Exibindo a lista de itens */}
+
       {items.map((item) => (
         <Card
           key={item.id}
@@ -156,11 +150,11 @@ const ShoppingList = () => {
           <CardContent
             sx={{ display: "flex", alignItems: "center", width: "100%" }}
           >
-            {/* Ícone da categoria com cor */}
+
             <IconButton sx={{ marginRight: "1em" }}>
               {getCategoryIcon(item.category)}
             </IconButton>
-            {/* Descrição do item com risco se marcado */}
+
             <Typography
               sx={{
                 flexGrow: 1,
@@ -169,11 +163,11 @@ const ShoppingList = () => {
             >
               {item.description}
             </Typography>
-            {/* Botão de check */}
+
             <IconButton onClick={() => handleCheckItem(item.id)}>
               <Checkbox checked={item.checked} />
             </IconButton>
-            {/* Lixeira */}
+
             <IconButton onClick={() => handleDeleteItem(item.id)}>
               <DeleteIcon color="error" />
             </IconButton>
