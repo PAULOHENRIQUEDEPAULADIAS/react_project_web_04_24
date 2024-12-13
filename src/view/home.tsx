@@ -19,8 +19,6 @@ import { IconButton, Modal, Button, Fab } from "@mui/material";
 
 import ShoppingList from "../components/shoppingList.jsx";
 
-
-
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const theme = useTheme();
@@ -47,31 +45,31 @@ const Home: React.FC = () => {
   };
 
   const handleClick = () => {
-    console.log("Fab clicado"); 
+    console.log("Fab clicado");
     onFabClick();
   };
-  
 
   const handlePrint = () => {
     const printContents = document.getElementById("printable-area").innerHTML;
     const originalContents = document.body.innerHTML;
- 
+
     document.body.innerHTML = printContents;
 
     window.print();
 
     document.body.innerHTML = originalContents;
   };
-  
+
   return (
     <Box
       sx={{
-        height: "100vh",
+        minHeight: "50vw",
+        height: "auto",
+        width: "100vw",
         padding: "2em",
         display: "flex",
         justifyContent: "center",
         background: `linear-gradient(to bottom, transparent 10%, #3b79f5 70%)`,
-        position: "relative",
       }}
     >
       <Grid
@@ -81,7 +79,6 @@ const Home: React.FC = () => {
         alignItems="center"
         sx={{ maxWidth: "600px", width: "100%" }}
       >
-        
         <Grid
           item
           sx={{
@@ -121,7 +118,6 @@ const Home: React.FC = () => {
           </Box>
 
           <Box sx={{ display: "flex", alignItems: "center" }}>
-          
             <IconButton
               onClick={handlePrint}
               sx={{
@@ -140,8 +136,6 @@ const Home: React.FC = () => {
           Aplicativo gerenciador de compras
         </Typography>
 
-        
-      
         <Grid
           item
           container
@@ -188,7 +182,6 @@ const Home: React.FC = () => {
           </Swiper>
         </Grid>
 
-       
         <Modal
           open={openModal}
           onClose={handleCloseModal}
@@ -208,7 +201,11 @@ const Home: React.FC = () => {
               borderRadius: 2,
             }}
           >
-            <Typography id="modal-title" variant="h6" sx={{ marginBottom: "1em" }}>
+            <Typography
+              id="modal-title"
+              variant="h6"
+              sx={{ marginBottom: "1em" }}
+            >
               Adicionar Nova Categoria
             </Typography>
             <FormularioCategoria />
@@ -218,14 +215,20 @@ const Home: React.FC = () => {
           </Box>
         </Modal>
 
-        <div id="printable-area">
-  <ShoppingList />
-</div>
-
+        <div id="printable-area" 
+        sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            padding: "0 20px",
+          }}>
+          <ShoppingList 
+          
+          />
+        </div>
       </Grid>
     </Box>
   );
 };
 
 export default Home;
-

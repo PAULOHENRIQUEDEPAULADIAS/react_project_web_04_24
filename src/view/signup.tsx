@@ -12,6 +12,7 @@ import { signUp } from "../services/authcontext";
 import { useState } from "react";
 import { handleChange } from "../utils/core";
 import { validateEmail, validPassword } from "../utils/validator";
+import { WidthFull } from "@mui/icons-material";
 
 
 const SignUp = () => {
@@ -95,16 +96,17 @@ const SignUp = () => {
       sx={{
         height: "100vh",
         paddingTop: 8,
+        width: "100vw",
       }}
     >
       <Grid sx={styles.boxAdjustment} container>
-        <Grid sx={styles.centerBox} item xs={12}>
+        <Grid item xs={12}>
           <Avatar alt="Logo" />
         </Grid>
-        <Grid sx={{ ...styles.centerBox, ...styles.marginTop }} item xs={12}>
+        <Grid sx={styles.marginTop } item xs={12}>
           <Typography variant="h3">Tela de Cadastro</Typography>
         </Grid>
-        <Grid sx={styles.centerBox} item xs={12}>
+        <Grid item xs={12}>
           <Typography variant="h5">
             Bem vindo seu app Gerenciador de Compras
           </Typography>
@@ -112,7 +114,7 @@ const SignUp = () => {
         <Grid sx={styles.marginTop} item xs={12}>
           <TextField
             label="E-mail"
-            fullWidth={true}
+            fullWidth
             onChange={(event) =>
               handleChange(data, setData, event.target.value, "email")
             }
@@ -124,7 +126,7 @@ const SignUp = () => {
         <Grid sx={styles.marginTop} item xs={12}>
           <TextField
             label="Senha"
-            fullWidth={true}
+            fullWidth
             onChange={(event) =>
               handleChange(data, setData, event.target.value, "password")
             }
@@ -137,7 +139,7 @@ const SignUp = () => {
         <Grid sx={styles.marginTop} item xs={12}>
           <TextField
             label="Confirmar Senha"
-            fullWidth={true}
+            fullWidth
             onChange={(event) =>
               handleChange(
                 data,
@@ -155,7 +157,7 @@ const SignUp = () => {
             onKeyPress={handleKeyPress}
           />
         </Grid>
-        <Grid sx={{ ...styles.marginTop, textAlign: "center" }} item xs={12}>
+        <Grid sx={styles.marginTop} item xs={12}>
           <Link to="/">Já tem conta? Entre aqui</Link>
         </Grid>
 
@@ -170,17 +172,14 @@ const SignUp = () => {
 };
 
 const styles = {
-  centerBox: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   boxAdjustment: {
     padding: "16px",
     display: "flex",
     flexDirection: "column", 
     gap: "16px", 
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100dw",
   },
   marginTop: {
     marginTop: 4,
