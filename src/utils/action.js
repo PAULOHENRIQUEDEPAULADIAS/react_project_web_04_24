@@ -6,9 +6,7 @@ const selectItem = (value, key, data, setData) => {
     setData({...data, [key]: value})  
 }
 
-const generateSubtitle = (item, translate) => {
-    return 'oi'
-}
+
 
 const getTitle = (action_type) => {
     switch(action_type) {
@@ -56,7 +54,6 @@ const validateFields = (data, actionType) => {
 
 export {
     handleInputChange,
-    generateSubtitle,
     getTitle,
     selectItem,
     validateFields

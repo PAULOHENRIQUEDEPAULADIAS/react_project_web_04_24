@@ -63,13 +63,12 @@ const Home: React.FC = () => {
   return (
     <Box
       sx={{
-        minHeight: "50vw",
-        height: "auto",
+        height: "100vh",
         width: "100vw",
         padding: "2em",
         display: "flex",
         justifyContent: "center",
-        background: `linear-gradient(to bottom, transparent 10%, #3b79f5 70%)`,
+        backgroundColor: theme.palette.background.default,       
       }}
     >
       <Grid
